@@ -452,11 +452,19 @@ function renderSettings() {
 // ─────────────────────────────────────────────
 // ROUTING
 // ─────────────────────────────────────────────
-function navigate(view) {
+function navigate(view, pushHistory = true) {
   AppState.currentView = view;
   UI.showView(view + '-view');
   UI.setActiveNav(view);
-  window.location.hash = view;
+
+  // Usar pushState para que el botón de atrás funcione correctamente
+  // Solo agregar entrada si cambia de vista o no hay hash actual
+  if (pushHistory) {
+    const currentHash = window.location.hash.replace('#', '');
+    if (currentHash !== view) {
+      history.pushState({ view }, '', '#' + view);
+    }
+  }
 
   // Render the active view
   switch (view) {
@@ -472,7 +480,7 @@ function navigate(view) {
 }
 
 function refreshCurrentView() {
-  navigate(AppState.currentView);
+  navigate(AppState.currentView, false); // no agregar entrada de historial al refrescar
 }
 
 // ─────────────────────────────────────────────
@@ -1018,7 +1026,32 @@ function setupEventListeners() {
 
   // Keyboard: Escape closes modal
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') UI.closeAllModals();
+    if (e.key === 'Escape') UI.closeAllModals(); // history.go(-N) se encarga internamente
+  });
+
+  // Botón físico / gesto de atrás del teléfono (popstate)
+  window.addEventListener('popstate', e => {
+    // Si el popstate fue generado por nuestro propio history.back/go, ignorarlo
+    if (UI._ignoreNextPopState > 0) {
+      UI._ignoreNextPopState--;
+      return;
+    }
+
+    // Si hay modales abiertos, cerrar el último (sin llamar history.back() de nuevo)
+    if (UI._modalStack.length > 0) {
+      UI.closeModal(null, true); // _fromPopState = true
+      return;
+    }
+
+    // Sin modales: navegar a la vista del hash actual
+    const hash = window.location.hash.replace('#', '');
+    const validViews = ['dashboard', 'transactions', 'budgets', 'goals', 'subscriptions', 'statistics', 'categories', 'settings'];
+    if (validViews.includes(hash)) {
+      navigate(hash, false); // false = no pushear más historial
+    } else {
+      // Hash vacío o inválido: volver al dashboard
+      navigate('dashboard', false);
+    }
   });
 
   // System theme change
@@ -1078,7 +1111,10 @@ function init() {
   // Navigate to initial view from hash or default
   const hash = window.location.hash.replace('#', '');
   const validViews = ['dashboard', 'transactions', 'budgets', 'goals', 'subscriptions', 'statistics', 'categories', 'settings'];
-  navigate(validViews.includes(hash) ? hash : 'dashboard');
+  const initialView = validViews.includes(hash) ? hash : 'dashboard';
+  // Escribir el estado inicial con replaceState (no agrega entrada extra al historial)
+  history.replaceState({ view: initialView }, '', '#' + initialView);
+  navigate(initialView, false);
 }
 
 // Start app when DOM is ready

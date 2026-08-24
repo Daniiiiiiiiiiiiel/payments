@@ -29,6 +29,7 @@ const UI = {
   // MODAL SYSTEM
   // ────────────────────────────────
   _modalStack: [],
+  _ignoreNextPopState: 0, // cuántos popstate ignorar (generados por history.back() propio)
 
   openModal(id) {
     const modal = document.getElementById(id);
@@ -36,10 +37,11 @@ const UI = {
     modal.classList.add('modal-open');
     document.body.classList.add('modal-active');
     this._modalStack.push(id);
+    // Registrar entrada en el historial para capturar el gesto/botón de atrás
+    history.pushState({ modalId: id }, '');
   },
 
-  closeModal(id) {
-    const modal = id ? document.getElementById(id) : null;
+  closeModal(id, _fromPopState = false) {
     const targetId = id || this._modalStack[this._modalStack.length - 1];
     const target = document.getElementById(targetId);
     if (target) {
@@ -49,35 +51,46 @@ const UI = {
     if (this._modalStack.length === 0) {
       document.body.classList.remove('modal-active');
     }
+    // Si el cierre fue manual (no desde popstate), retroceder en el historial
+    // y marcar que el próximo popstate debe ignorarse
+    if (!_fromPopState) {
+      this._ignoreNextPopState++;
+      history.back();
+    }
   },
 
-  closeAllModals() {
+  closeAllModals(_fromPopState = false) {
+    const count = this._modalStack.length;
     document.querySelectorAll('.modal.modal-open').forEach(m => m.classList.remove('modal-open'));
     this._modalStack = [];
     document.body.classList.remove('modal-active');
+    if (!_fromPopState && count > 0) {
+      this._ignoreNextPopState += count;
+      history.go(-count);
+    }
   },
 
   // ────────────────────────────────
   // CONFIRMATION DIALOG
   // ────────────────────────────────
   confirm(message, onConfirm, onCancel) {
-    const modal = document.getElementById('confirm-modal');
     const msgEl = document.getElementById('confirm-message');
-    if (!modal || !msgEl) return;
+    if (!msgEl) return;
     msgEl.textContent = message;
-    modal.classList.add('modal-open');
-    document.body.classList.add('modal-active');
+
+    // Abrir usando el sistema unificado (registra historial)
+    this.openModal('confirm-modal');
 
     const confirmBtn = document.getElementById('confirm-ok');
     const cancelBtn = document.getElementById('confirm-cancel');
 
-    const cleanup = () => {
-      modal.classList.remove('modal-open');
-      if (!document.querySelectorAll('.modal.modal-open').length) {
-        document.body.classList.remove('modal-active');
-      }
-      confirmBtn.replaceWith(confirmBtn.cloneNode(true));
-      cancelBtn.replaceWith(cancelBtn.cloneNode(true));
+    const cleanup = (fromPopState = false) => {
+      this.closeModal('confirm-modal', fromPopState);
+      // Re-clonar botones para limpiar listeners
+      const okFresh = document.getElementById('confirm-ok');
+      const cancelFresh = document.getElementById('confirm-cancel');
+      if (okFresh) okFresh.replaceWith(okFresh.cloneNode(true));
+      if (cancelFresh) cancelFresh.replaceWith(cancelFresh.cloneNode(true));
     };
 
     document.getElementById('confirm-ok').addEventListener('click', () => {
