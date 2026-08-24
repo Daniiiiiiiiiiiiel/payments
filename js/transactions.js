@@ -176,12 +176,36 @@ const Transactions = {
     const symbol = settings?.currencySymbol || '$';
     const sign = tx.type === 'expense' ? '-' : '+';
     const amountClass = tx.type === 'expense' ? 'amount-expense' : 'amount-income';
+
+    // — Iconos de método de pago
+    const paymentIcons = { cash: '💵', card: '💳', bank: '🏦', paypal: '🅿️', other: '📦' };
+    const paymentLabels = { cash: 'Efectivo', card: 'Tarjeta', bank: 'Banco', paypal: 'PayPal', other: 'Otro' };
+    const payIcon = paymentIcons[tx.paymentMethod] || '💳';
+    const payLabel = paymentLabels[tx.paymentMethod] || tx.paymentMethod || '';
+
+    // — Pills de metadatos extras
+    const pills = [];
+    if (tx.paymentMethod) {
+      pills.push(`<span class="tx-pill tx-pill-pay">${payIcon} ${payLabel}</span>`);
+    }
+    if (tx.accountName) {
+      pills.push(`<span class="tx-pill tx-pill-account">🪪 ${tx.accountName}</span>`);
+    }
+    const pillsHtml = pills.length ? `<div class="tx-pills">${pills.join('')}</div>` : '';
+
+    // — Nota / comentario
+    const noteHtml = tx.note
+      ? `<span class="tx-note">💬 ${tx.note}</span>`
+      : '';
+
     return `
       <div class="tx-item" data-id="${tx.id}">
         <div class="tx-icon" style="background:${cat.color}20; color:${cat.color}">${cat.icon}</div>
         <div class="tx-info">
-          <span class="tx-desc">${Utils.truncate(tx.description, 28)}</span>
+          <span class="tx-desc">${tx.description}</span>
           <span class="tx-meta">${cat.name} · ${Utils.formatRelativeDate(tx.date)}</span>
+          ${pillsHtml}
+          ${noteHtml}
         </div>
         <div class="tx-right">
           <span class="tx-amount ${amountClass}">${sign}${Utils.formatCurrency(tx.amount, symbol)}</span>

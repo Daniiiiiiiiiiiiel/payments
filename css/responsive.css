@@ -4,6 +4,13 @@
 
 /* ── MOBILE FIRST: base styles apply to mobile ── */
 
+/* En dispositivos táctiles los botones de acción siempre son visibles (no hay hover) */
+@media (hover: none) {
+  .tx-actions { opacity: 1; }
+}
+
+
+
 /* ── TABLET (≥ 640px) ── */
 @media (min-width: 640px) {
   .bottom-nav {
