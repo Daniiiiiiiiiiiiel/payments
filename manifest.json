@@ -2,13 +2,16 @@
   "name": "payments",
   "short_name": "payments",
   "description": "Gestiona tus finanzas personales de forma simple, rápida y privada.",
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0A84FF",
+  "theme_color": "#000000",
   "orientation": "portrait-primary",
   "lang": "es",
-  "categories": ["finance", "productivity"],
+  "categories": [
+    "finance",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "./assets/icons/icon.png",
@@ -23,14 +26,24 @@
       "short_name": "Gasto",
       "description": "Registrar un nuevo gasto rápidamente",
       "url": "./index.html#transactions",
-      "icons": [{ "src": "./assets/icons/icon.png", "sizes": "512x512" }]
+      "icons": [
+        {
+          "src": "./assets/icons/icon.png",
+          "sizes": "512x512"
+        }
+      ]
     },
     {
       "name": "Dashboard",
       "short_name": "Inicio",
       "description": "Ver el resumen de finanzas",
       "url": "./index.html#dashboard",
-      "icons": [{ "src": "./assets/icons/icon.png", "sizes": "512x512" }]
+      "icons": [
+        {
+          "src": "./assets/icons/icon.png",
+          "sizes": "512x512"
+        }
+      ]
     }
   ],
   "screenshots": [],
