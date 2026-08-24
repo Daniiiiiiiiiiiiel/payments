@@ -4,7 +4,7 @@
  * Network-First para requests externos.
  */
 
-const CACHE_NAME = 'finanzas-v1.0.0';
+const CACHE_NAME = 'payments-v1.0.0';
 
 const STATIC_ASSETS = [
   './',
@@ -23,8 +23,6 @@ const STATIC_ASSETS = [
   './js/statistics.js',
   './js/ui.js',
   './js/app.js',
-  './assets/icons/icon-192.png',
-  './assets/icons/icon-512.png',
   './assets/icons/icon.png',
 ];
 
