@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Gestiona tus finanzas personales de forma simple, rápida y privada." />
+  <meta name="theme-color" content="#0A84FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Finanzas" />
+  <title>Finanzas Personales</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" href="./assets/icons/icon.png" />
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/components.css" />
+  <link rel="stylesheet" href="./css/responsive.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     MAIN APP CONTAINER
+════════════════════════════════════════════════════ -->
+<div class="app-container">
+
+  <!-- ── SIDEBAR (Desktop) ── -->
+  <aside class="sidebar" role="navigation" aria-label="Navegación principal">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">
+        <img src="./assets/icons/icon.png" alt="Logo" />
+      </div>
+      <span class="sidebar-logo-text">Finanzas</span>
+    </div>
+    <p class="sidebar-section-label">Principal</p>
+    <nav class="sidebar-nav">
+      <button class="sidebar-item" data-nav="dashboard" aria-label="Dashboard">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="10" rx="1"/><rect width="7" height="5" x="3" y="14" rx="1"/></svg>
+        </span> Dashboard
+      </button>
+      <button class="sidebar-item" data-nav="transactions" aria-label="Movimientos">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg>
+        </span> Movimientos
+      </button>
+      <button class="sidebar-item" data-nav="budgets" aria-label="Presupuestos">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+        </span> Presupuestos
+      </button>
+      <button class="sidebar-item" data-nav="goals" aria-label="Metas">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </span> Metas
+      </button>
+      <button class="sidebar-item" data-nav="subscriptions" aria-label="Suscripciones">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+        </span> Suscripciones
+      </button>
+      <button class="sidebar-item" data-nav="statistics" aria-label="Estadísticas">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </span> Estadísticas
+      </button>
+    </nav>
+    <p class="sidebar-section-label">Administración</p>
+    <nav class="sidebar-nav">
+      <button class="sidebar-item" data-nav="categories" aria-label="Categorías">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.42 2.42 0 0 0 3.414 0l6.586-6.586a2.42 2.42 0 0 0 0-3.414Z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+        </span> Categorías
+      </button>
+      <button class="sidebar-item" data-nav="settings" aria-label="Configuración">
+        <span class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        </span> Configuración
+      </button>
+    </nav>
+  </aside>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="main-content" id="main-content">
+
+    <!-- ══════════════════════════════════════
+         DASHBOARD
+    ═══════════════════════════════════════ -->
+    <section id="dashboard-view" class="view" aria-label="Dashboard">
+      <div class="page-header">
+        <div class="header-row">
+          <div>
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle" id="dash-month-label"></p>
+          </div>
+          <button id="install-btn" aria-label="Instalar aplicación">⬇ Instalar</button>
+        </div>
+      </div>
+      <div class="page-body">
+        <!-- Hero Card -->
+        <div class="dashboard-hero">
+          <p class="hero-label">Balance Total</p>
+          <p class="hero-balance" id="dash-balance">$0.00</p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <p class="hero-stat-label">Ingresos del mes</p>
+              <p class="hero-stat-value income" id="dash-income">$0.00</p>
+            </div>
+            <div class="hero-stat">
+              <p class="hero-stat-label">Gastos del mes</p>
+              <p class="hero-stat-value expense" id="dash-expenses">$0.00</p>
+            </div>
+            <div class="hero-stat">
+              <p class="hero-stat-label">Ahorro</p>
+              <p class="hero-stat-value" id="dash-savings">$0.00</p>
+            </div>
+            <div class="hero-stat">
+              <p class="hero-stat-label">Tasa de ahorro</p>
+              <p class="hero-stat-value" id="dash-savings-rate">0%</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Left column -->
+          <div>
+            <!-- Spending Summary -->
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <p class="section-title">Gasto este período</p>
+              <div class="dash-spending-row">
+                <span class="dash-spending-label">Hoy</span>
+                <span class="dash-spending-value" id="dash-today">$0.00</span>
+              </div>
+              <div class="dash-spending-row">
+                <span class="dash-spending-label">Esta semana</span>
+                <span class="dash-spending-value" id="dash-week">$0.00</span>
+              </div>
+              <div class="dash-spending-row">
+                <span class="dash-spending-label">Este mes</span>
+                <span class="dash-spending-value" id="dash-month">$0.00</span>
+              </div>
+              <div class="dash-spending-row">
+                <span class="dash-spending-label">Promedio diario</span>
+                <span class="dash-spending-value" id="dash-daily-avg">$0.00</span>
+              </div>
+              <div class="dash-spending-row">
+                <span class="dash-spending-label" style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)" id="dash-vs-prev"></span>
+              </div>
+            </div>
+
+            <!-- Budget Progress -->
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <p class="section-title">Presupuesto del mes</p>
+              <div class="progress-bar" style="margin-bottom: var(--space-2); height: 10px">
+                <div class="progress-fill budget-fill-ok" id="dash-budget-bar-fill" style="width: 0%"></div>
+              </div>
+              <p class="text-sm text-muted" id="dash-budget-text">Sin presupuesto configurado</p>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <div class="section-header">
+                <p class="section-title" style="margin:0">Actividad reciente</p>
+                <button class="section-action" data-nav="transactions">Ver todo</button>
+              </div>
+              <div id="dash-recent"></div>
+            </div>
+          </div>
+
+          <!-- Right column -->
+          <div>
+            <!-- Category Chart -->
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <p class="section-title">Gastos por categoría</p>
+              <div class="chart-container" style="height: 220px">
+                <canvas id="chart-category"></canvas>
+              </div>
+            </div>
+
+            <!-- Evolution Chart -->
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <p class="section-title">Evolución mensual</p>
+              <div class="chart-container" style="height: 200px">
+                <canvas id="chart-evolution"></canvas>
+              </div>
+            </div>
+
+            <!-- Upcoming Subscriptions -->
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <div class="section-header">
+                <p class="section-title" style="margin:0">Próximos pagos</p>
+                <button class="section-action" data-nav="subscriptions">Ver todo</button>
+              </div>
+              <div id="dash-upcoming"></div>
+            </div>
+
+            <!-- Insights -->
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <p class="section-title">Insights</p>
+              <div id="dash-insights"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         TRANSACTIONS
+    ═══════════════════════════════════════ -->
+    <section id="transactions-view" class="view" aria-label="Movimientos">
+      <div class="page-header">
+        <div class="header-row">
+          <h1 class="page-title">Movimientos</h1>
+          <button class="btn btn-primary btn-sm" onclick="UI.openQuickAdd('expense')" aria-label="Nuevo movimiento">+ Nuevo</button>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <input type="search" id="tx-search" class="form-input filter-search" placeholder="Buscar…" aria-label="Buscar movimientos" />
+        <select id="tx-filter-type" class="form-select" aria-label="Filtrar por tipo">
+          <option value="all">Todos</option>
+          <option value="expense">Gastos</option>
+          <option value="income">Ingresos</option>
+        </select>
+        <select id="tx-filter-cat" class="form-select" aria-label="Filtrar por categoría">
+          <option value="">Todas las categorías</option>
+        </select>
+      </div>
+
+      <div class="page-body" style="padding-top: var(--space-2)">
+        <p class="tx-count-label" id="tx-count"></p>
+        <div id="tx-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BUDGETS
+    ═══════════════════════════════════════ -->
+    <section id="budgets-view" class="view" aria-label="Presupuestos">
+      <div class="page-header">
+        <div class="header-row">
+          <h1 class="page-title">Presupuestos</h1>
+          <button id="new-budget-btn" class="btn btn-primary btn-sm" aria-label="Nuevo presupuesto">+ Nuevo</button>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="budget-grid" id="budgets-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         GOALS
+    ═══════════════════════════════════════ -->
+    <section id="goals-view" class="view" aria-label="Metas de ahorro">
+      <div class="page-header">
+        <div class="header-row">
+          <h1 class="page-title">Metas</h1>
+          <button id="new-goal-btn" class="btn btn-primary btn-sm" aria-label="Nueva meta">+ Nueva</button>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="goals-grid" id="goals-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SUBSCRIPTIONS
+    ═══════════════════════════════════════ -->
+    <section id="subscriptions-view" class="view" aria-label="Suscripciones">
+      <div class="page-header">
+        <div class="header-row">
+          <h1 class="page-title">Suscripciones</h1>
+          <button id="new-sub-btn" class="btn btn-primary btn-sm" aria-label="Nueva suscripción">+ Nueva</button>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="subs-summary">
+          <div class="subs-summary-card">
+            <p class="subs-summary-label">Total mensual</p>
+            <p class="subs-summary-value" id="subs-monthly-total">$0.00</p>
+          </div>
+          <div class="subs-summary-card">
+            <p class="subs-summary-label">Total anual</p>
+            <p class="subs-summary-value" id="subs-yearly-total">$0.00</p>
+          </div>
+        </div>
+        <div id="subs-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         STATISTICS
+    ═══════════════════════════════════════ -->
+    <section id="statistics-view" class="view" aria-label="Estadísticas">
+      <div class="page-header">
+        <h1 class="page-title">Estadísticas</h1>
+      </div>
+      <div class="page-body">
+        <!-- Period Selector -->
+        <select id="stats-period" class="form-select" style="width:auto; margin-bottom: var(--space-4)" aria-label="Período de estadísticas">
+          <option value="current">Este mes</option>
+          <option value="previous">Mes anterior</option>
+          <option value="3m">Últimos 3 meses</option>
+          <option value="6m">Últimos 6 meses</option>
+          <option value="year">Este año</option>
+        </select>
+
+        <!-- Summary -->
+        <div class="stats-summary-grid" style="margin-bottom: var(--space-5)">
+          <div class="stat-card">
+            <p class="stat-label">Ingresos</p>
+            <p class="stat-value text-success" id="stats-total-income">$0.00</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Gastos</p>
+            <p class="stat-value text-danger" id="stats-total-expenses">$0.00</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Ahorro</p>
+            <p class="stat-value" id="stats-total-savings">$0.00</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Tasa de ahorro</p>
+            <p class="stat-value text-accent" id="stats-savings-rate">0%</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Promedio diario</p>
+            <p class="stat-value" id="stats-daily-avg">$0.00</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Mayor categoría</p>
+            <p class="stat-value" id="stats-top-cat" style="font-size:var(--font-size-md)">—</p>
+          </div>
+        </div>
+
+        <div class="stats-layout">
+          <div>
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <p class="section-title">Gastos por categoría</p>
+              <div class="chart-container" style="height: 260px">
+                <canvas id="stats-chart-cat"></canvas>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom: var(--space-4)">
+              <p class="section-title">Evolución ingresos vs gastos</p>
+              <div class="chart-container" style="height: 260px">
+                <canvas id="stats-chart-evo"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CATEGORIES
+    ═══════════════════════════════════════ -->
+    <section id="categories-view" class="view" aria-label="Categorías">
+      <div class="page-header">
+        <div class="header-row">
+          <h1 class="page-title">Categorías</h1>
+          <button id="new-cat-btn" class="btn btn-primary btn-sm" aria-label="Nueva categoría">+ Nueva</button>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="cats-grid">
+          <div class="card">
+            <p class="section-title">Gastos</p>
+            <div id="cats-expense-list"></div>
+          </div>
+          <div class="card">
+            <p class="section-title">Ingresos</p>
+            <div id="cats-income-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SETTINGS
+    ═══════════════════════════════════════ -->
+    <section id="settings-view" class="view" aria-label="Configuración">
+      <div class="page-header">
+        <h1 class="page-title">Configuración</h1>
+      </div>
+      <div class="page-body">
+        <div class="settings-layout">
+          <div>
+            <!-- Apariencia -->
+            <div class="settings-section">
+              <p class="section-label">Apariencia</p>
+              <div class="settings-row">
+                <div>
+                  <p class="settings-row-label">Tema</p>
+                </div>
+                <select id="settings-theme" class="form-select" aria-label="Seleccionar tema">
+                  <option value="auto">Automático</option>
+                  <option value="light">Claro</option>
+                  <option value="dark">Oscuro</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Preferencias -->
+            <div class="settings-section">
+              <p class="section-label">Preferencias</p>
+              <div class="settings-row">
+                <div>
+                  <p class="settings-row-label">Moneda</p>
+                </div>
+                <select id="settings-currency" class="form-select" aria-label="Seleccionar moneda">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="MXN">MXN ($)</option>
+                  <option value="CRC">CRC (₡)</option>
+                  <option value="COP">COP ($)</option>
+                  <option value="ARS">ARS ($)</option>
+                  <option value="JPY">JPY (¥)</option>
+                </select>
+              </div>
+              <div class="settings-row">
+                <div>
+                  <p class="settings-row-label">Formato de fecha</p>
+                </div>
+                <select id="settings-date-format" class="form-select" aria-label="Formato de fecha">
+                  <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                  <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                  <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- PWA Install -->
+            <div class="settings-section">
+              <p class="section-label">Aplicación</p>
+              <div class="settings-row">
+                <div>
+                  <p class="settings-row-label">Instalar como App</p>
+                  <p class="settings-row-sub">Disponible en escritorio y móvil</p>
+                </div>
+                <button id="install-btn-settings" class="btn btn-secondary btn-sm" onclick="document.getElementById('install-btn')?.click()">Instalar</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Datos -->
+            <div class="settings-section">
+              <p class="section-label">Datos</p>
+              <div style="display:flex; flex-direction:column; gap: var(--space-2)">
+                <button id="demo-btn" class="btn btn-secondary">🎭 Cargar datos de demo</button>
+                <button id="export-btn" class="btn btn-secondary">⬇ Exportar datos (JSON)</button>
+                <button id="import-btn" class="btn btn-secondary">⬆ Importar datos (JSON)</button>
+                <button id="clear-btn" class="btn btn-danger">🗑️ Borrar todos los datos</button>
+              </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="settings-section">
+              <p class="section-label">Almacenamiento</p>
+              <div class="card card-sm">
+                <div class="settings-stat">
+                  <span>Movimientos</span>
+                  <span id="settings-tx-count">0</span>
+                </div>
+                <div class="settings-stat">
+                  <span>Categorías</span>
+                  <span id="settings-cat-count">0</span>
+                </div>
+                <div class="settings-stat">
+                  <span>Almacenamiento</span>
+                  <span>localStorage</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- About -->
+            <div class="settings-section">
+              <p class="section-label">Acerca de</p>
+              <div class="card card-sm text-center">
+                <p style="font-size:2rem; margin-bottom: var(--space-2)">💰</p>
+                <p class="font-bold" style="margin-bottom:4px">Finanzas Personales</p>
+                <p class="text-sm text-muted">v1.0.0 · PWA · Offline</p>
+                <p class="text-xs text-muted" style="margin-top: var(--space-2)">Todos los datos se guardan localmente en tu dispositivo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /main-content -->
+</div><!-- /app-container -->
+
+<!-- ── BOTTOM NAVIGATION (Mobile) ── -->
+<nav class="bottom-nav" role="navigation" aria-label="Navegación principal">
+  <button class="nav-item" data-nav="dashboard" aria-label="Dashboard">
+    <span class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="10" rx="1"/><rect width="7" height="5" x="3" y="14" rx="1"/></svg>
+    </span>
+    <span class="nav-label">Inicio</span>
+  </button>
+  <button class="nav-item" data-nav="transactions" aria-label="Movimientos">
+    <span class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg>
+    </span>
+    <span class="nav-label">Gastos</span>
+  </button>
+  <button class="nav-item" data-nav="budgets" aria-label="Presupuestos">
+    <span class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+    </span>
+    <span class="nav-label">Budget</span>
+  </button>
+  <button class="nav-item" data-nav="statistics" aria-label="Estadísticas">
+    <span class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+    </span>
+    <span class="nav-label">Stats</span>
+  </button>
+  <button class="nav-item" data-nav="settings" aria-label="Configuración">
+    <span class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+    </span>
+    <span class="nav-label">Config</span>
+  </button>
+</nav>
+
+<!-- ── FAB ── -->
+<div class="fab" aria-label="Acciones rápidas">
+  <button class="fab-btn" id="fab-btn" aria-label="Añadir movimiento" title="Añadir movimiento">+</button>
+</div>
+
+<!-- ════════════════════════════════════════════
+     MODALS
+════════════════════════════════════════════ -->
+
+<!-- Quick Add / Edit Transaction -->
+<div id="quick-add-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="quick-add-title">
+  <div class="modal-backdrop"></div>
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 class="modal-title" id="quick-add-title">Nuevo movimiento</h2>
+      <button class="modal-close" data-close-modal="quick-add-modal" aria-label="Cerrar">✕</button>
+    </div>
+
+    <form id="quick-add-form" novalidate>
+      <input type="hidden" id="qa-type" name="type" value="expense" />
+      <input type="hidden" id="qa-edit-id" name="editId" value="" />
+
+      <!-- Type Toggle -->
+      <div class="type-toggle" style="margin-bottom: var(--space-4)">
+        <button type="button" class="type-toggle-btn active" data-type="expense">Gasto</button>
+        <button type="button" class="type-toggle-btn" data-type="income">Ingreso</button>
+      </div>
+
+      <!-- Amount -->
+      <div class="form-group">
+        <label class="form-label" for="qa-amount">Monto *</label>
+        <div class="amount-input-wrapper">
+          <span class="amount-prefix">$</span>
+          <input type="number" id="qa-amount" name="amount" class="form-input" placeholder="0.00" min="0.01" step="0.01" required aria-required="true" />
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label class="form-label" for="qa-description">Descripción *</label>
+        <input type="text" id="qa-description" name="description" class="form-input" placeholder="Ej: Supermercado" required aria-required="true" maxlength="100" />
+      </div>
+
+      <!-- Category -->
+      <div class="form-group">
+        <label class="form-label" for="qa-category">Categoría *</label>
+        <select id="qa-category" name="categoryId" class="form-select" required aria-required="true"></select>
+      </div>
+
+      <!-- Date -->
+      <div class="form-group">
+        <label class="form-label" for="qa-date">Fecha *</label>
+        <input type="date" id="qa-date" name="date" class="form-input" required aria-required="true" />
+      </div>
+
+      <!-- Payment & Account (collapsible row) -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap: var(--space-3)">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label" for="qa-payment">Método de pago</label>
+          <select id="qa-payment" name="paymentMethod" class="form-select"></select>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label" for="qa-account">Cuenta / Tarjeta</label>
+          <input type="text" id="qa-account" name="accountName" class="form-input" placeholder="Ej: Visa" maxlength="40" />
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div class="form-group" style="margin-top: var(--space-3)">
+        <label class="form-label" for="qa-note">Nota</label>
+        <textarea id="qa-note" name="note" class="form-textarea" placeholder="Nota opcional…" rows="2" maxlength="200"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width:100%; margin-top: var(--space-2)">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Budget Modal -->
+<div id="budget-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="budget-modal-title">
+  <div class="modal-backdrop"></div>
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 class="modal-title" id="budget-modal-title">Nuevo Presupuesto</h2>
+      <button class="modal-close" data-close-modal="budget-modal" aria-label="Cerrar">✕</button>
+    </div>
+    <form id="budget-form" novalidate>
+      <input type="hidden" id="budget-edit-id" />
+      <div class="form-group">
+        <label class="form-label" for="budget-name">Nombre *</label>
+        <input type="text" id="budget-name" class="form-input" placeholder="Ej: Comida" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="budget-amount">Monto *</label>
+        <div class="amount-input-wrapper">
+          <span class="amount-prefix">$</span>
+          <input type="number" id="budget-amount" class="form-input" placeholder="0.00" min="1" step="0.01" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="budget-category">Categoría (vacío = general)</label>
+        <select id="budget-category" class="form-select">
+          <option value="">Presupuesto general</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="budget-month">Mes</label>
+        <input type="month" id="budget-month" class="form-input" />
+      </div>
+      <div class="form-group" style="flex-direction:row; align-items:center; gap: var(--space-3)">
+        <input type="checkbox" id="budget-general" style="width:18px;height:18px;cursor:pointer" />
+        <label class="form-label" for="budget-general" style="margin:0; cursor:pointer">Marcar como presupuesto general del mes</label>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Goal Modal -->
+<div id="goal-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="goal-modal-title">
+  <div class="modal-backdrop"></div>
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 class="modal-title" id="goal-modal-title">Nueva Meta</h2>
+      <button class="modal-close" data-close-modal="goal-modal" aria-label="Cerrar">✕</button>
+    </div>
+    <form id="goal-form" novalidate>
+      <input type="hidden" id="goal-edit-id" />
+      <input type="hidden" id="goal-icon-selected" value="🎯" />
+      <div class="form-group">
+        <label class="form-label" for="goal-name">Nombre *</label>
+        <input type="text" id="goal-name" class="form-input" placeholder="Ej: Comprar PC" required />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap: var(--space-3)">
+        <div class="form-group">
+          <label class="form-label" for="goal-target">Objetivo *</label>
+          <div class="amount-input-wrapper">
+            <span class="amount-prefix">$</span>
+            <input type="number" id="goal-target" class="form-input" placeholder="0.00" min="1" step="0.01" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="goal-current">Ahorrado</label>
+          <div class="amount-input-wrapper">
+            <span class="amount-prefix">$</span>
+            <input type="number" id="goal-current" class="form-input" placeholder="0.00" min="0" step="0.01" value="0" />
+          </div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap: var(--space-3)">
+        <div class="form-group">
+          <label class="form-label" for="goal-date">Fecha objetivo</label>
+          <input type="date" id="goal-date" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="goal-color">Color</label>
+          <input type="color" id="goal-color" value="#0A84FF" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ícono</label>
+        <div class="icon-picker" id="goal-icon-picker"></div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Add to Goal Modal -->
+<div id="add-goal-modal" class="modal modal-center" role="dialog" aria-modal="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-sheet" style="max-width:360px; border-radius: var(--radius-xl); margin:auto">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 class="modal-title">Añadir a meta</h2>
+      <button class="modal-close" data-close-modal="add-goal-modal" aria-label="Cerrar">✕</button>
+    </div>
+    <p class="text-sm text-muted" style="margin-bottom: var(--space-4)">Meta: <strong id="add-goal-name"></strong></p>
+    <form id="add-goal-form">
+      <input type="hidden" id="add-goal-id" />
+      <div class="form-group">
+        <label class="form-label" for="add-goal-amount">Monto a añadir *</label>
+        <div class="amount-input-wrapper">
+          <span class="amount-prefix">$</span>
+          <input type="number" id="add-goal-amount" class="form-input" placeholder="0.00" min="0.01" step="0.01" required />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Añadir</button>
+    </form>
+  </div>
+</div>
+
+<!-- Subscription Modal -->
+<div id="sub-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="sub-modal-title">
+  <div class="modal-backdrop"></div>
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 class="modal-title" id="sub-modal-title">Nueva Suscripción</h2>
+      <button class="modal-close" data-close-modal="sub-modal" aria-label="Cerrar">✕</button>
+    </div>
+    <form id="sub-form" novalidate>
+      <input type="hidden" id="sub-edit-id" />
+      <div class="form-group">
+        <label class="form-label" for="sub-name">Nombre *</label>
+        <input type="text" id="sub-name" class="form-input" placeholder="Ej: Netflix" required />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap: var(--space-3)">
+        <div class="form-group">
+          <label class="form-label" for="sub-amount">Monto *</label>
+          <div class="amount-input-wrapper">
+            <span class="amount-prefix">$</span>
+            <input type="number" id="sub-amount" class="form-input" placeholder="0.00" min="0.01" step="0.01" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="sub-frequency">Frecuencia</label>
+          <select id="sub-frequency" class="form-select">
+            <option value="weekly">Semanal</option>
+            <option value="biweekly">Quincenal</option>
+            <option value="monthly" selected>Mensual</option>
+            <option value="quarterly">Trimestral</option>
+            <option value="yearly">Anual</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="sub-next-date">Próxima fecha</label>
+        <input type="date" id="sub-next-date" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="sub-category">Categoría</label>
+        <select id="sub-category" class="form-select"></select>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap: var(--space-3)">
+        <div class="form-group">
+          <label class="form-label" for="sub-payment">Método de pago</label>
+          <select id="sub-payment" class="form-select"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="sub-account">Cuenta</label>
+          <input type="text" id="sub-account" class="form-input" placeholder="Opcional" maxlength="40" />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Category Modal -->
+<div id="cat-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="cat-modal-title">
+  <div class="modal-backdrop"></div>
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 class="modal-title" id="cat-modal-title">Nueva Categoría</h2>
+      <button class="modal-close" data-close-modal="cat-modal" aria-label="Cerrar">✕</button>
+    </div>
+    <form id="cat-form" novalidate>
+      <input type="hidden" id="cat-edit-id" />
+      <input type="hidden" id="cat-icon-selected" value="📦" />
+      <div class="form-group">
+        <label class="form-label" for="cat-name">Nombre *</label>
+        <input type="text" id="cat-name" class="form-input" placeholder="Ej: Entretenimiento" required />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap: var(--space-3)">
+        <div class="form-group">
+          <label class="form-label" for="cat-type">Tipo</label>
+          <select id="cat-type" class="form-select">
+            <option value="expense">Gasto</option>
+            <option value="income">Ingreso</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cat-color">Color</label>
+          <input type="color" id="cat-color" value="#0A84FF" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ícono</label>
+        <div class="icon-picker" id="cat-icon-picker"></div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="confirm-modal" class="modal modal-center" role="dialog" aria-modal="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-sheet" style="max-width:340px; border-radius: var(--radius-xl); margin:auto; text-align:center">
+    <div class="modal-handle"></div>
+    <p style="font-size:2rem; margin-bottom: var(--space-3)">⚠️</p>
+    <p class="font-semibold" id="confirm-message" style="margin-bottom: var(--space-2); color: var(--color-text-primary)"></p>
+    <div class="confirm-actions" style="flex-direction:column">
+      <button id="confirm-ok" class="btn btn-danger">Confirmar</button>
+      <button id="confirm-cancel" class="btn btn-secondary">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container" role="alert" aria-live="polite"></div>
+
+<!-- ════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="./js/storage.js"></script>
+<script src="./js/utils.js"></script>
+<script src="./js/categories.js"></script>
+<script src="./js/transactions.js"></script>
+<script src="./js/budgets.js"></script>
+<script src="./js/goals.js"></script>
+<script src="./js/subscriptions.js"></script>
+<script src="./js/statistics.js"></script>
+<script src="./js/ui.js"></script>
+<script src="./js/app.js"></script>
+
+<!-- Set month label on load -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('dash-month-label');
+    if (el) el.textContent = Utils.monthName(Utils.currentMonth());
+  });
+</script>
+</body>
+</html>
