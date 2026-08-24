@@ -1,6 +1,6 @@
 {
-  "name": "payments",
-  "short_name": "payments",
+  "name": "Payments",
+  "short_name": "Payments",
   "description": "Gestiona tus finanzas personales de forma simple, rápida y privada.",
   "start_url": "/",
   "display": "standalone",
